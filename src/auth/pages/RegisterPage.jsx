@@ -4,6 +4,8 @@ import { Link as RouterLink } from "react-router-dom";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { startCreatingUserWithEmailPassword } from "../../store/auth/thunks";
 
 const formData = {
   email: "nati@nati.com",
@@ -25,22 +27,25 @@ const formValidations = {
 };
 
 export const RegisterPage = () => {
+  const dispatch = useDispatch()
 
   const [formSubmitted, setFormSubmitted] = useState(false)
 
-const { displayName, email, password, onInputChange, formState, isFormValid, displayNameValid, emailValid, passwordValid } = useForm(formData, formValidations);
+  const { displayName, email, password, onInputChange, formState, isFormValid, displayNameValid, emailValid, passwordValid } = useForm(formData, formValidations);
 
 
-const onSubmit = ( event) => {
-  event.preventDefault();
-  setFormSubmitted(true);
-  console.log(formState)
-}
+
+  const onSubmit = ( event) => {
+    event.preventDefault();
+    setFormSubmitted(true);
+
+    if (!isFormValid) return;
+    dispatch(startCreatingUserWithEmailPassword(formState))
+  }
 
   return (
     <>
       <AuthLayout title="Create account">
-        <h1>FormValid {isFormValid ? "Correct" : "not Valid"}</h1>
         <form onSubmit={onSubmit}>
           <Grid container>
             <Grid item xs={12} sx={{ mt: 2 }}>
