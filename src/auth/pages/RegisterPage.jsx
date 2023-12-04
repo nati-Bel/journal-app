@@ -3,6 +3,7 @@ import { Grid, TextField, Typography, Button, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks";
+import { useState } from "react";
 
 const formData = {
   email: "nati@nati.com",
@@ -11,7 +12,8 @@ const formData = {
 };
 
 const formValidations = {
-  email: [(value) => value.includes("@"), "An email must contain a @"],
+  email: [(value) => value.includes("@"), 
+  "An email must contain a @"],
   password: [
     (value) => value.length >= 6,
     "A password must have at least 6 characters",
@@ -23,16 +25,22 @@ const formValidations = {
 };
 
 export const RegisterPage = () => {
+
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
 const { displayName, email, password, onInputChange, formState, isFormValid, displayNameValid, emailValid, passwordValid } = useForm(formData, formValidations);
+
 
 const onSubmit = ( event) => {
   event.preventDefault();
+  setFormSubmitted(true);
   console.log(formState)
 }
 
   return (
     <>
       <AuthLayout title="Create account">
+        <h1>FormValid {isFormValid ? "Correct" : "not Valid"}</h1>
         <form onSubmit={onSubmit}>
           <Grid container>
             <Grid item xs={12} sx={{ mt: 2 }}>
@@ -44,7 +52,7 @@ const onSubmit = ( event) => {
                 name="displayName"
                 value={displayName}
                 onChange={onInputChange}
-                error={!displayNameValid}
+                error={!!displayNameValid && formSubmitted}
                 helperText={displayNameValid}
               ></TextField>
             </Grid>
@@ -57,6 +65,8 @@ const onSubmit = ( event) => {
                 name="email"
                 value={email}
                 onChange={onInputChange}
+                error={!!emailValid && formSubmitted}
+                helperText={emailValid}
               ></TextField>
             </Grid>
             <Grid item xs={12} sx={{ mt: 2 }}>
@@ -68,14 +78,13 @@ const onSubmit = ( event) => {
                 name="password"
                 value={password}
                 onChange={onInputChange}
+                error={!!passwordValid && formSubmitted}
+                helperText={passwordValid}
               ></TextField>
 
               <Grid container spacing={2} sx={{ mt: 1, mb: 2 }}>
                 <Grid item xs={12}>
-                  <Button 
-                  type="submit"
-                  variant="contained" 
-                  fullWidth>
+                  <Button type="submit" variant="contained" fullWidth>
                     Create account
                   </Button>
                 </Grid>
