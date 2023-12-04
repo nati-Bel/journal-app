@@ -1,8 +1,16 @@
-# React + Vite
+# Journal App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is an ongoing project developed during the course 'React - from zero to expert' by Ferando Herrera.
+The app enables a user to create a profile and once they sign in they can upload notes, diary entries and pictures to the journal.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Stack implemented in the app:
+  - React JS with Vite,
+  - MUI,
+  - Redux and RTK Query,
+  - custom hooks,
+  - Firebase,
+  - Firestore (pending),
+  - Cloudinary (pending),
+  - Vercel (pending),
+  - Jest (pending)
+  
