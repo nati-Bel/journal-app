@@ -14,8 +14,8 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
 
   const {email, password, onInputChange} = useForm({
-    email: 'nati@nati.com',
-    password: '12345'
+    email: '',
+    password: ''
   });
 
   const isAuthenticating = useMemo( () => status ==='checking', [status])
@@ -38,7 +38,10 @@ export const LoginPage = () => {
   return (
     <>
       <AuthLayout title="Login">
-        <form onSubmit={onSubmit}>
+        <form
+          className="animate__animated animate__fadeIn animate__faster"
+          onSubmit={onSubmit}
+        >
           <Grid container>
             <Grid item xs={12} sx={{ mt: 2 }}>
               <TextField
