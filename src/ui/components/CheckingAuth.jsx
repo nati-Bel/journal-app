@@ -1,6 +1,6 @@
 import { CircularProgress, Grid } from "@mui/material";
 
-export const CheckingAuth = ({ children, title = "" }) => {
+export const CheckingAuth = ({ children, title = '' }) => {
   return (
     <>
       <Grid
