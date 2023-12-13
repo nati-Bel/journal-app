@@ -31,9 +31,6 @@ export const LoginPage = () => {
     dispatch(startGoogleSignIn())
   }
 
-  
-  
-
 
   return (
     <>
