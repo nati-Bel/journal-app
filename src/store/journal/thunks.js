@@ -36,6 +36,7 @@ export const startLoadingNotes = () => {
     if(!uid) throw new Error('The uid does not exist')
 
     const notes = await loadNotes(uid);
+    
     dispatch( setNotes( notes ) );
 
 }}
