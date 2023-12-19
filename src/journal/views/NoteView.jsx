@@ -6,12 +6,14 @@ import { useForm } from "../../hooks";
 import { useEffect, useMemo } from "react";
 import { setActiveNote } from "../../store/journal/journalSlice";
 import { startSavingNote } from "../../store/journal/thunks";
+import Swal from "sweetalert2";
+import 'sweetalert2/dist/sweetalert2.css'
 
 
 export const NoteView = () => {
 
   const dispatch = useDispatch();
-  const { active:note } = useSelector( state => state.journal );
+  const { active:note, messageSaved, isSaving } = useSelector( state => state.journal );
   const { body, title, date, onInputChange, formState} = useForm( note);
 
   const dateString = useMemo( () => {
@@ -22,6 +24,12 @@ export const NoteView = () => {
   useEffect( () => {
     dispatch(setActiveNote(formState))
   }, [formState])
+
+  useEffect( () => {
+      if ( messageSaved.length > 0) {
+        Swal.fire('Note updated', messageSaved, 'success');
+      }
+  },[messageSaved])
 
   const onSaveNote = () => {
     dispatch( startSavingNote());
@@ -43,7 +51,8 @@ export const NoteView = () => {
       </Grid>
       <Grid item>
         <Button
-          onClick={onSaveNote}
+          disabled={ isSaving }
+          onClick={ onSaveNote }
           color="primary"
           sx={{ padding: 2 }}
         >
